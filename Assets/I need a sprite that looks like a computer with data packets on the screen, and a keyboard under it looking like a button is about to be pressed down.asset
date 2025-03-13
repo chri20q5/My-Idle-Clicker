@@ -18,6 +18,8 @@ MonoBehaviour:
   - rid: 7133537169020027106
   - rid: 7133537169020027113
   - rid: 7133537169020027120
+  - rid: 7133537186122825800
+  - rid: 7133537186122825807
   currentMode: TextToSprite
   m_Data:
   - rid: 7133537169020027085
@@ -29,30 +31,27 @@ MonoBehaviour:
   - rid: 7133537169020027091
   - rid: 7133537169020027099
   preRefinedArtifact:
-    rid: 7133537169020027120
+    rid: -2
   refinedArtifact:
-    rid: 7133537169020027120
+    rid: -2
   selectedArtifact:
     rid: 7133537169020027120
   m_Operators:
-  - rid: 7133537169020027092
-  - rid: 7133537169020027127
-  - rid: 7133537169020027128
-  - rid: 7133537169020027129
-  - rid: 7133537169020027130
-  m_PreRefineOperators:
   - rid: 7133537169020027092
   - rid: 7133537169020027093
   - rid: 7133537169020027094
   - rid: 7133537169020027095
   - rid: 7133537169020027096
   - rid: 7133537169020027097
+  m_PreRefineOperators: []
   m_ExportedArtifacts:
   - m_UnityGuid: a850518d3b79a9f47a4c3696103bf508
     m_MuseGuid: 51863e2d-99fd-4504-806d-67a554cb01eb
   references:
     version: 2
     RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
     - rid: 7133537169020027085
       type: {class: BookmarkManager, ns: Unity.Muse.Common, asm: Unity.Muse.Common}
       data:
@@ -109,8 +108,7 @@ MonoBehaviour:
           key: PromptOperator
           version: 0.0.2
           settings:
-          - computer with dat packets being displayed on the monitor, needs to look
-            very hackerlike
+          - Generate a sprite that represents a keylogger network
           - 
           enabled: 1
           assembly: 
@@ -644,7 +642,40 @@ MonoBehaviour:
           hideable: 0
           hidden: 0
           isRefinement: 0
-    - rid: 7133537169020027127
+    - rid: 7133537186122825800
+      type: {class: SpriteMuseArtifact, ns: Unity.Muse.Sprite.Artifacts, asm: Unity.Muse.Sprite}
+      data:
+        mode: TextToSprite
+        Guid: 29787426-76c6-4704-b7b7-4c7cb7377483
+        BatchRequestIdentifier: 
+        Seed: 57864
+        m_Operators:
+        - rid: 7133537186122825801
+        - rid: 7133537186122825802
+        - rid: 7133537186122825803
+        - rid: 7133537186122825804
+        - rid: 7133537186122825805
+        - rid: 7133537186122825806
+        history:
+        - rid: 7133537186122825800
+        children: []
+        m_UnsafeContent: 0
+    - rid: 7133537186122825801
+      type: {class: GenerateOperator, ns: Unity.Muse.Common, asm: Unity.Muse.Common}
+      data:
+        m_OperatorData:
+          type: GenerateOperator
+          key: GenerateOperator
+          version: 1.0.0
+          settings:
+          - TextToSprite
+          - 2
+          enabled: 1
+          assembly: 
+          hideable: 0
+          hidden: 0
+          isRefinement: 0
+    - rid: 7133537186122825802
       type: {class: PromptOperator, ns: Unity.Muse.Common, asm: Unity.Muse.Common}
       data:
         m_OperatorData:
@@ -652,14 +683,14 @@ MonoBehaviour:
           key: PromptOperator
           version: 0.0.2
           settings:
-          - 
+          - Generate a sprite that represents a keylogger network
           - 
           enabled: 1
           assembly: 
           hideable: 0
           hidden: 0
           isRefinement: 0
-    - rid: 7133537169020027128
+    - rid: 7133537186122825803
       type: {class: SpriteGeneratorSettingsOperator, ns: Unity.Muse.Sprite.Operators, asm: Unity.Muse.Sprite}
       data:
         m_OperatorData:
@@ -674,8 +705,8 @@ MonoBehaviour:
           - 512
           - 1
           - 1
-          - 43284
-          - 51863e2d-99fd-4504-806d-67a554cb01eb
+          - 57864
+          - 29787426-76c6-4704-b7b7-4c7cb7377483
           - 0
           - 5cc104e0-423a-473e-8034-b9d346cb2357
           - 0
@@ -688,10 +719,142 @@ MonoBehaviour:
           hideable: 0
           hidden: 0
           isRefinement: 0
-    - rid: 7133537169020027129
+    - rid: 7133537186122825804
+      type: {class: KeyImageOperator, ns: Unity.Muse.Sprite.Operators, asm: Unity.Muse.Sprite}
+      data:
+        m_OperatorData:
+          type: Unity.Muse.Sprite.Operators.KeyImageOperator
+          key: Unity.Muse.Sprite.Operators.KeyImageOperator
+          version: 0.0.1
+          settings:
+          - 
+          - 
+          - True
+          - 512
+          - 512
+          - 0.5
+          enabled: 1
+          assembly: Unity.Muse.Sprite
+          hideable: 0
+          hidden: 0
+          isRefinement: 0
+    - rid: 7133537186122825805
       type: {class: SpriteRefiningMaskOperator, ns: Unity.Muse.Sprite.Operators, asm: Unity.Muse.Sprite}
       data: 
-    - rid: 7133537169020027130
+    - rid: 7133537186122825806
+      type: {class: SessionOperator, ns: Unity.Muse.Sprite.Operators, asm: Unity.Muse.Sprite}
+      data:
+        m_OperatorData:
+          type: Unity.Muse.Sprite.Operators.SessionOperator
+          key: Unity.Muse.Sprite.Operators.SessionOperator
+          version: 0.0.1
+          settings:
+          - 06b0ebc7-7602-4b7e-9b09-ce96b58e1086
+          enabled: 0
+          assembly: Unity.Muse.Sprite
+          hideable: 0
+          hidden: 0
+          isRefinement: 0
+    - rid: 7133537186122825807
+      type: {class: SpriteMuseArtifact, ns: Unity.Muse.Sprite.Artifacts, asm: Unity.Muse.Sprite}
+      data:
+        mode: TextToSprite
+        Guid: 86ce32cd-bf76-4e83-bb09-57b09213bbb1
+        BatchRequestIdentifier: 
+        Seed: 55823
+        m_Operators:
+        - rid: 7133537186122825808
+        - rid: 7133537186122825809
+        - rid: 7133537186122825810
+        - rid: 7133537186122825811
+        - rid: 7133537186122825812
+        - rid: 7133537186122825813
+        history:
+        - rid: 7133537186122825807
+        children: []
+        m_UnsafeContent: 0
+    - rid: 7133537186122825808
+      type: {class: GenerateOperator, ns: Unity.Muse.Common, asm: Unity.Muse.Common}
+      data:
+        m_OperatorData:
+          type: GenerateOperator
+          key: GenerateOperator
+          version: 1.0.0
+          settings:
+          - TextToSprite
+          - 2
+          enabled: 1
+          assembly: 
+          hideable: 0
+          hidden: 0
+          isRefinement: 0
+    - rid: 7133537186122825809
+      type: {class: PromptOperator, ns: Unity.Muse.Common, asm: Unity.Muse.Common}
+      data:
+        m_OperatorData:
+          type: PromptOperator
+          key: PromptOperator
+          version: 0.0.2
+          settings:
+          - Generate a sprite that represents a keylogger network
+          - 
+          enabled: 1
+          assembly: 
+          hideable: 0
+          hidden: 0
+          isRefinement: 0
+    - rid: 7133537186122825810
+      type: {class: SpriteGeneratorSettingsOperator, ns: Unity.Muse.Sprite.Operators, asm: Unity.Muse.Sprite}
+      data:
+        m_OperatorData:
+          type: Unity.Muse.Sprite.Operators.SpriteGeneratorSettingsOperator
+          key: Unity.Muse.Sprite.Operators.SpriteGeneratorSettingsOperator
+          version: 0.0.1
+          settings:
+          - 
+          - 
+          - 0.85
+          - 512
+          - 512
+          - 1
+          - 1
+          - 55823
+          - 86ce32cd-bf76-4e83-bb09-57b09213bbb1
+          - 0
+          - 5cc104e0-423a-473e-8034-b9d346cb2357
+          - 0
+          - 03fa404b-39fc-4979-9272-deb5d8c4b24c
+          - 'Happy Harvest [Orion V4 2000]'
+          - 8 Nov 2023
+          - 
+          enabled: 1
+          assembly: Unity.Muse.Sprite
+          hideable: 0
+          hidden: 0
+          isRefinement: 0
+    - rid: 7133537186122825811
+      type: {class: KeyImageOperator, ns: Unity.Muse.Sprite.Operators, asm: Unity.Muse.Sprite}
+      data:
+        m_OperatorData:
+          type: Unity.Muse.Sprite.Operators.KeyImageOperator
+          key: Unity.Muse.Sprite.Operators.KeyImageOperator
+          version: 0.0.1
+          settings:
+          - 
+          - 
+          - True
+          - 512
+          - 512
+          - 0.5
+          enabled: 1
+          assembly: Unity.Muse.Sprite
+          hideable: 0
+          hidden: 0
+          isRefinement: 0
+    - rid: 7133537186122825812
+      type: {class: SpriteRefiningMaskOperator, ns: Unity.Muse.Sprite.Operators, asm: Unity.Muse.Sprite}
+      data: 
+    - rid: 7133537186122825813
       type: {class: SessionOperator, ns: Unity.Muse.Sprite.Operators, asm: Unity.Muse.Sprite}
       data:
         m_OperatorData:

@@ -10,6 +10,7 @@ public class Clicker : MonoBehaviour
 
 
     [HideInInspector] public float count = 0;
+    [HideInInspector] public float clickPower = 1f;
 
 
 
@@ -21,7 +22,7 @@ public class Clicker : MonoBehaviour
 
     public void ActiveClicker()
     {
-        count++;
+        count += clickPower;
         UpdateUI();
     }
 

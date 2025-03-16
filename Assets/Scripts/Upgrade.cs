@@ -12,15 +12,30 @@ public class Upgrade : MonoBehaviour
     public TMP_Text priceText;
     public TMP_Text incomeInfoText;
     public Slider intervalTimer;
+    public TMP_Text levelText;
     public TMP_Text timerText;
     public Button buyButton;
 
     [Header("Generator Values")]
     public int startPrice = 15;
-    public float upgradePriceMultiplier;
-    public float currencyPerUpgrade = 0.2f;
     public float baseIncome;
     public float incomeInterval;
+
+    [Header("Growth Rates - Income")]
+    [Tooltip("Growth rate for levels 0-4")]
+    public float earlyGameIncomeGrowth = 1.10f;
+    [Tooltip("Growth rate for levels 5-14")]
+    public float midGameIncomeGrowth = 1.15f;
+    [Tooltip("Growth rate for levels 15+")]
+    public float lateGameIncomeGrowth = 1.25f;
+
+    [Header("Growth Rates - Price")]
+    [Tooltip("Growth rate for levels 0-4")]
+    public float earlyGamePriceGrowth = 1.10f;
+    [Tooltip("Growth rate for levels 5-14")]
+    public float midGamePriceGrowth = 1.15f;
+    [Tooltip("Growth rate for levels 15+")]
+    public float lateGamePriceGrowth = 1.25f;
 
     int level = 0;
     private float incomeTimer;
@@ -74,31 +89,55 @@ public class Upgrade : MonoBehaviour
 
     void GenerateIncome()
     {
-        float totalIncome = baseIncome;
-        if (level > 1)
-        {
-            totalIncome += currencyPerUpgrade * (level - 1);
-        }
+        float growthMultiplier = GetIncomeGrowthMultiplier();
+        float totalIncome = baseIncome * Mathf.Pow(growthMultiplier, level);
         clicker.AddIncome(totalIncome);
     }
 
     int CalculatePrice()
     {
-        int price = Mathf.RoundToInt(startPrice * Mathf.Pow(upgradePriceMultiplier, level));
+        float growthMultiplier = GetPriceGrowthMultiplier();
+        int price = Mathf.RoundToInt(startPrice * Mathf.Pow(growthMultiplier, level));
         return price;
 
     }
 
-    public float CalculateIncomePerSecond()
+    private float GetIncomeGrowthMultiplier()
     {
-        if (level == 0)
-            return 0;
-        return (baseIncome + (currencyPerUpgrade * level)) / incomeInterval;
+        if (level < 5)
+        {
+            return earlyGameIncomeGrowth;
+        }
+        else if (level < 15)
+        {
+            return midGameIncomeGrowth;
+        }
+        else
+        {
+            return lateGameIncomeGrowth;
+        }
+    }
+
+    private float GetPriceGrowthMultiplier()
+    {
+        if (level < 5)
+        {
+            return earlyGamePriceGrowth;
+        }
+        else if (level < 15)
+        {
+            return midGamePriceGrowth;
+        }
+        else
+        {
+            return lateGamePriceGrowth;
+        }
     }
 
     public void updateUI()
     {
     priceText.text = CalculatePrice().ToString();
+    levelText.text = $"Level: {level}";
 
     if (level == 0)
     {
@@ -110,8 +149,10 @@ public class Upgrade : MonoBehaviour
     }
     else
     {
-        float totalIncome = baseIncome + (currencyPerUpgrade * (level - 1));
-        incomeInfoText.text = "Income: " + totalIncome + " every " + incomeInterval + "s";
+        float incomeGrowth = GetIncomeGrowthMultiplier();
+        float totalIncome = baseIncome * Mathf.Pow(incomeGrowth, level);
+        float nextLevelIncome = baseIncome * Mathf.Pow(incomeGrowth, level + 1);
+        incomeInfoText.text = $"Income: {totalIncome:f1} -> {nextLevelIncome:f1} every {incomeInterval:f1}s";
     }
     }
 

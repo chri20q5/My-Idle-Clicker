@@ -21,7 +21,7 @@ public class ClickerUpgrades : MonoBehaviour
     [Header("Managers")]
     public Clicker clicker;
 
-    private int level = 0;
+    public int level = 0;
 
     private void Start()
     {
@@ -47,7 +47,7 @@ public class ClickerUpgrades : MonoBehaviour
         }
     }
 
-    private void UpdateClickPower()
+    public void UpdateClickPower()
     {
         clicker.clickPower = baseClickPower * Mathf.Pow(powerBase, level);
     }
@@ -57,7 +57,7 @@ public class ClickerUpgrades : MonoBehaviour
         return Mathf.RoundToInt(startPrice * Mathf.Pow(priceMultiplier, level));
     }
 
-    private void UpdateUI()
+    public void UpdateUI()
     {
         priceText.text = CalculatePrice().ToString();
         levelText.text = $"Level: {level}";

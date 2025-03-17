@@ -6,7 +6,7 @@ using UnityEngine.UI;
 using Button = UnityEngine.UI.Button;
 using Slider = UnityEngine.UI.Slider;
 
-public class Upgrade : MonoBehaviour
+public abstract class Upgrade : MonoBehaviour
 {
     [Header("Components")]
     public TMP_Text priceText;
@@ -39,6 +39,8 @@ public class Upgrade : MonoBehaviour
 
     int level = 0;
     private float incomeTimer;
+    public string upgradeName;
+    public int
 
     [Header("Managers")]
     public Clicker clicker;

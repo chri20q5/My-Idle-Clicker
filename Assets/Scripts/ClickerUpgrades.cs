@@ -1,13 +1,16 @@
+using System;
 using TMPro;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ClickerUpgrades : MonoBehaviour
+public class ClickerUpgrades : MonoBehaviour, IDataPersistence
 {
     [Header("Components")]
     public TMP_Text priceText;
     public TMP_Text levelText;
     public Button buyButton;
+    public string upgradeID;
 
     [Header("Price")]
     public float startPrice = 25f;
@@ -16,6 +19,13 @@ public class ClickerUpgrades : MonoBehaviour
     [Header("Power")]
     public float powerBase = 1.3f;
     public float baseClickPower = 1f;
+
+
+    [ContextMenu("Generate ID")]
+    private void GenerateGuid()
+    {
+        upgradeID = Guid.NewGuid().ToString();
+    }
 
 
     [Header("Managers")]
@@ -28,9 +38,19 @@ public class ClickerUpgrades : MonoBehaviour
         UpdateUI();
     }
 
+    public void LoadData(GameData data)
+    {
+        data.clickerUpgradesLevel.TryGetValue(upgradeID, out level);
+    }
+
+    public void SaveData(ref GameData data)
+    {
+        data.clickerUpgradesLevel[upgradeID] = this.level;
+
+    }
     private void Update()
     {
-        bool canAfford = clicker.count >= CalculatePrice();
+        bool canAfford = clicker.currencyCount >= CalculatePrice();
         buyButton.interactable = canAfford;
     }
 

@@ -6,7 +6,7 @@ using UnityEngine.UI;
 using Button = UnityEngine.UI.Button;
 using Slider = UnityEngine.UI.Slider;
 
-public class Upgrade : MonoBehaviour
+public class GeneratorUpgrades : MonoBehaviour, IDataPersistence
 {
     [Header("Components")]
     public TMP_Text priceText;
@@ -15,6 +15,8 @@ public class Upgrade : MonoBehaviour
     public TMP_Text levelText;
     public TMP_Text timerText;
     public Button buyButton;
+    public string generatorId;
+
 
     [Header("Generator Values")]
     public int startPrice = 15;
@@ -37,17 +39,39 @@ public class Upgrade : MonoBehaviour
     [Tooltip("Growth rate for levels 15+")]
     public float lateGamePriceGrowth = 1.25f;
 
+    [ContextMenu("Generate ID")]
+    private void GenerateGuid()
+    {
+        generatorId = Guid.NewGuid().ToString();
+    }
+
+
+
     int level = 0;
     private float incomeTimer;
 
     [Header("Managers")]
     public Clicker clicker;
 
+    public Generator1Upgrade boostUpgrade;
+
     private void Start()
     {
         incomeTimer = incomeInterval;
         intervalTimer.value = 0;
         updateUI();
+    }
+
+    public void LoadData(GameData data)
+    {
+        data.generatorLevels.TryGetValue(generatorId, out level);
+        data.generatorTimers.TryGetValue(generatorId, out incomeTimer);
+    }
+
+    public void SaveData(ref GameData data)
+    {
+        data.generatorLevels[generatorId] = this.level;
+        data.generatorTimers[generatorId] = this.incomeTimer;
     }
 
     private void Update()
@@ -72,7 +96,7 @@ public class Upgrade : MonoBehaviour
             intervalTimer.value = 0f;
             timerText.text = incomeInterval.ToString("f1");
         }
-        bool canAfford = clicker.count >= CalculatePrice();
+        bool canAfford = clicker.currencyCount >= CalculatePrice();
         buyButton.interactable = canAfford;
     }
     public void ClickAction()
@@ -91,6 +115,12 @@ public class Upgrade : MonoBehaviour
     {
         float growthMultiplier = GetIncomeGrowthMultiplier();
         float totalIncome = baseIncome * Mathf.Pow(growthMultiplier, level);
+
+        if (boostUpgrade != null)
+        {
+            totalIncome *= boostUpgrade.GetCurrentBoostMultiplier();
+        }
+
         clicker.AddIncome(totalIncome);
     }
 

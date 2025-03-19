@@ -3179,6 +3179,7 @@ MonoBehaviour:
   levelText: {fileID: 2014762414}
   timerText: {fileID: 1920571036}
   buyButton: {fileID: 307601462}
+  generatorId: 5df78206-708d-4f5d-bcf3-cbf4562f8255
   startPrice: 116640
   baseIncome: 38880
   incomeInterval: 0
@@ -3189,6 +3190,7 @@ MonoBehaviour:
   midGamePriceGrowth: 1.25
   lateGamePriceGrowth: 1.35
   clicker: {fileID: 1935206902}
+  boostUpgrade: {fileID: 0}
 --- !u!1 &325259995
 GameObject:
   m_ObjectHideFlags: 0
@@ -3751,6 +3753,39 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 437240541}
   m_CullTransparentMesh: 1
+--- !u!1 &445086593
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 445086594}
+  m_Layer: 0
+  m_Name: Managers
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &445086594
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 445086593}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 909.2623, y: 603.9258, z: -3.1922438}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1935206903}
+  - {fileID: 565679007}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &489418094
 GameObject:
   m_ObjectHideFlags: 0
@@ -4099,7 +4134,8 @@ MonoBehaviour:
   priceText: {fileID: 863876432}
   levelText: {fileID: 1464449470}
   buyButton: {fileID: 502178414}
-  startPrice: 250
+  upgradeID: 67abb685-9edc-4881-83fe-3cd936b1baa0
+  startPrice: 10
   priceMultiplier: 2
   powerBase: 1.3
   baseClickPower: 1
@@ -4390,6 +4426,52 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 552170079}
   m_CullTransparentMesh: 1
+--- !u!1 &565679006
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 565679007}
+  - component: {fileID: 565679008}
+  m_Layer: 0
+  m_Name: DataPersistence Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &565679007
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 565679006}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 445086594}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &565679008
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 565679006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9878ccb849836d243bc30c3a84b83218, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fileName: SaveData.game
+  useEncryption: 0
 --- !u!1 &600005578
 GameObject:
   m_ObjectHideFlags: 0
@@ -4937,7 +5019,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 792958348}
-        m_TargetAssemblyTypeName: Upgrade, Assembly-CSharp
+        m_TargetAssemblyTypeName: Generator1Upgrade, Assembly-CSharp
         m_MethodName: ClickAction
         m_Mode: 1
         m_Arguments:
@@ -4955,27 +5037,22 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 792958344}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7ec00b3924aa49a4bb5134cc8502a8f2, type: 3}
+  m_Script: {fileID: 11500000, guid: 78efc86519a95544da11f908d19f466d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   priceText: {fileID: 301733984}
-  incomeInfoText: {fileID: 0}
-  intervalTimer: {fileID: 0}
   levelText: {fileID: 1386284651}
-  timerText: {fileID: 0}
+  effectText: {fileID: 0}
   buyButton: {fileID: 792958347}
-  startPrice: 15
-  baseIncome: 5
-  incomeInterval: 5
-  earlyGameIncomeGrowth: 1.1
-  midGameIncomeGrowth: 1.15
-  lateGameIncomeGrowth: 1.25
-  earlyGamePriceGrowth: 1.1
-  midGamePriceGrowth: 1.15
-  lateGamePriceGrowth: 1.25
+  targetGenerator: {fileID: 1018234222}
   clicker: {fileID: 1935206902}
+  upgradeID: bc77b793-f9bf-4c78-be4d-b1c5c54ba781
+  startPrice: 1
+  priceMultiplier: 1
+  baseBoostPercent: 1
+  boostDuration: 0.5
 --- !u!1 &799457177
 GameObject:
   m_ObjectHideFlags: 0
@@ -5115,6 +5192,7 @@ MonoBehaviour:
   levelText: {fileID: 268919208}
   timerText: {fileID: 72644253}
   buyButton: {fileID: 805474855}
+  generatorId: 636f3ffe-5acd-4f25-8095-3d2840ebb49d
   startPrice: 15
   baseIncome: 5
   incomeInterval: 5
@@ -5125,6 +5203,7 @@ MonoBehaviour:
   midGamePriceGrowth: 1.25
   lateGamePriceGrowth: 1.35
   clicker: {fileID: 1935206902}
+  boostUpgrade: {fileID: 0}
 --- !u!114 &805474855
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6301,6 +6380,7 @@ MonoBehaviour:
   levelText: {fileID: 1754218795}
   timerText: {fileID: 1030050185}
   buyButton: {fileID: 1018234221}
+  generatorId: b6914034-2e30-47b7-851c-014a8930928b
   startPrice: 5
   baseIncome: 0.5
   incomeInterval: 1
@@ -6311,6 +6391,7 @@ MonoBehaviour:
   midGamePriceGrowth: 1.25
   lateGamePriceGrowth: 1.35
   clicker: {fileID: 1935206902}
+  boostUpgrade: {fileID: 0}
 --- !u!1 &1030050183
 GameObject:
   m_ObjectHideFlags: 0
@@ -7991,6 +8072,7 @@ MonoBehaviour:
   levelText: {fileID: 294414721}
   timerText: {fileID: 1875167373}
   buyButton: {fileID: 1274835737}
+  generatorId: 51a86265-1cf2-4759-a0b7-f61eca358736
   startPrice: 3240
   baseIncome: 1080
   incomeInterval: 810
@@ -8001,6 +8083,7 @@ MonoBehaviour:
   midGamePriceGrowth: 1.25
   lateGamePriceGrowth: 1.35
   clicker: {fileID: 1935206902}
+  boostUpgrade: {fileID: 0}
 --- !u!1 &1289024829
 GameObject:
   m_ObjectHideFlags: 0
@@ -8631,6 +8714,7 @@ MonoBehaviour:
   levelText: {fileID: 1568517408}
   timerText: {fileID: 1146719362}
   buyButton: {fileID: 1348254587}
+  generatorId: 55fb2761-bab0-418c-8459-0e2852a0c645
   startPrice: 540
   baseIncome: 180
   incomeInterval: 90
@@ -8641,6 +8725,7 @@ MonoBehaviour:
   midGamePriceGrowth: 1.25
   lateGamePriceGrowth: 1.35
   clicker: {fileID: 1935206902}
+  boostUpgrade: {fileID: 0}
 --- !u!1 &1361493709
 GameObject:
   m_ObjectHideFlags: 0
@@ -9505,6 +9590,7 @@ MonoBehaviour:
   levelText: {fileID: 246093501}
   timerText: {fileID: 176384277}
   buyButton: {fileID: 1427026510}
+  generatorId: c62ae753-e5cc-4020-8795-11ed49f7233d
   startPrice: 19440
   baseIncome: 6480
   incomeInterval: 810
@@ -9515,6 +9601,7 @@ MonoBehaviour:
   midGamePriceGrowth: 1.25
   lateGamePriceGrowth: 1.35
   clicker: {fileID: 1935206902}
+  boostUpgrade: {fileID: 0}
 --- !u!1 &1464449468
 GameObject:
   m_ObjectHideFlags: 0
@@ -9886,7 +9973,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1493371221}
   m_LocalRotation: {x: 0.0024174405, y: -0.000032905544, z: -0.0016555554, w: 0.99999577}
-  m_LocalPosition: {x: 0, y: 0, z: 0.00047570086}
+  m_LocalPosition: {x: 0, y: 0, z: -0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -9896,7 +9983,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0.277, y: -0.004, z: -0.19}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 131.44029, y: -30.850101}
+  m_AnchoredPosition: {x: 131, y: -30.850101}
   m_SizeDelta: {x: 537.13, y: 388.31}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1503357164
@@ -10792,6 +10879,7 @@ MonoBehaviour:
   levelText: {fileID: 338421500}
   timerText: {fileID: 0}
   buyButton: {fileID: 1674434561}
+  generatorId: 
   startPrice: 15
   baseIncome: 5
   incomeInterval: 5
@@ -10802,6 +10890,7 @@ MonoBehaviour:
   midGamePriceGrowth: 1.15
   lateGamePriceGrowth: 1.25
   clicker: {fileID: 1935206902}
+  boostUpgrade: {fileID: 0}
 --- !u!1 &1691093045
 GameObject:
   m_ObjectHideFlags: 0
@@ -12512,11 +12601,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe37225e3cee57740835b19245107934, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  countText: {fileID: 1691093047}
-  incomeText: {fileID: 0}
-  upgrades:
-  - {fileID: 805474854}
-  count: 0
+  currencyText: {fileID: 1691093047}
+  generatorUpgrades: []
+  currencyCount: 0
   clickPower: 1
 --- !u!4 &1935206903
 Transform:
@@ -12526,12 +12613,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1935206901}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 216.68706, y: 192.7287, z: -2.8759265}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -692.57526, y: -411.19708, z: 0.31631732}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 445086594}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1941930156
 GameObject:
@@ -13590,7 +13677,7 @@ SceneRoots:
   m_Roots:
   - {fileID: 1197806412}
   - {fileID: 1411409049}
+  - {fileID: 445086594}
   - {fileID: 427507768}
   - {fileID: 1036848193}
-  - {fileID: 1935206903}
   - {fileID: 95033531}

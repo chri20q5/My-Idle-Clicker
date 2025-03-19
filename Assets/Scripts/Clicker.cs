@@ -1,15 +1,14 @@
 using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 
-public class Clicker : MonoBehaviour
+public class Clicker : MonoBehaviour, IDataPersistence
 {
-    [SerializeField] TMP_Text countText;
-    [SerializeField] TMP_Text incomeText;
-    [SerializeField] Upgrade[] upgrades;
+    [SerializeField] TMP_Text currencyText;
+    [SerializeField] GeneratorUpgrades[] generatorUpgrades;
 
-
-    [HideInInspector] public float count = 0;
+    [HideInInspector] public float currencyCount = 0;
     [HideInInspector] public float clickPower = 1f;
 
 
@@ -19,24 +18,41 @@ public class Clicker : MonoBehaviour
         UpdateUI();
     }
 
+    public void LoadData(GameData data)
+    {
+        this.currencyCount = data.currencyCount;
+    }
+
+    public void SaveData(ref GameData data)
+    {
+        data.currencyCount = this.currencyCount;
+    }
+
 
     public void ActiveClicker()
     {
-        count += clickPower;
+        currencyCount += clickPower;
+
+        Generator1Upgrade[] boostUpgrades = FindObjectsOfType<Generator1Upgrade>();
+        foreach (var boostUpgrade in boostUpgrades)
+        {
+            boostUpgrade.TriggerBoostEffect();
+        }
+
         UpdateUI();
     }
 
     public void AddIncome(float amount)
     {
-        count += amount;
+        currencyCount += amount;
         UpdateUI();
     }
 
     public bool purchaseAction(int cost)
     {
-        if (count >= cost)
+        if (currencyCount >= cost)
         {
-            count -= cost;
+            currencyCount -= cost;
             UpdateUI();
             return true;
         }
@@ -47,6 +63,6 @@ public class Clicker : MonoBehaviour
 
     void UpdateUI()
     {
-     countText.text = Mathf.RoundToInt(count).ToString();
+     currencyText.text = Mathf.RoundToInt(currencyCount).ToString();
     }
 }

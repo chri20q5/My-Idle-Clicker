@@ -33,7 +33,7 @@ public class Clicker : MonoBehaviour, IDataPersistence
     {
         currencyCount += clickPower;
 
-        Generator1Upgrade[] boostUpgrades = FindObjectsOfType<Generator1Upgrade>();
+        Generator1Upgrade[] boostUpgrades = FindObjectsByType<Generator1Upgrade>(FindObjectsSortMode.None);
         foreach (var boostUpgrade in boostUpgrades)
         {
             boostUpgrade.TriggerBoostEffect();

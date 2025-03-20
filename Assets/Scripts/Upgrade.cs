@@ -46,9 +46,10 @@ public class GeneratorUpgrades : MonoBehaviour, IDataPersistence
     }
 
 
-
-    int level = 0;
+    private int level;
     private float incomeTimer;
+    private float boostMultiplier;
+    private float boostTimeRemaining;
 
     [Header("Managers")]
     public Clicker clicker;
@@ -59,7 +60,7 @@ public class GeneratorUpgrades : MonoBehaviour, IDataPersistence
     {
         incomeTimer = incomeInterval;
         intervalTimer.value = 0;
-        updateUI();
+        UpdateUI();
     }
 
     public void LoadData(GameData data)
@@ -96,8 +97,19 @@ public class GeneratorUpgrades : MonoBehaviour, IDataPersistence
             intervalTimer.value = 0f;
             timerText.text = incomeInterval.ToString("f1");
         }
+
+        if (boostTimeRemaining > 0f)
+        {
+            boostTimeRemaining -= Time.deltaTime;
+            if (boostTimeRemaining <= 0f)
+            {
+                boostMultiplier = 1f;
+            }
+        }
+
         bool canAfford = clicker.currencyCount >= CalculatePrice();
         buyButton.interactable = canAfford;
+        UpdateUI();
     }
     public void ClickAction()
     {
@@ -107,7 +119,7 @@ public class GeneratorUpgrades : MonoBehaviour, IDataPersistence
         if (purchaseSuccesful)
         {
             level++;
-            updateUI();
+            UpdateUI();
         }
     }
 
@@ -116,10 +128,7 @@ public class GeneratorUpgrades : MonoBehaviour, IDataPersistence
         float growthMultiplier = GetIncomeGrowthMultiplier();
         float totalIncome = baseIncome * Mathf.Pow(growthMultiplier, level);
 
-        if (boostUpgrade != null)
-        {
-            totalIncome *= boostUpgrade.GetCurrentBoostMultiplier();
-        }
+       totalIncome *= boostMultiplier;
 
         clicker.AddIncome(totalIncome);
     }
@@ -164,28 +173,68 @@ public class GeneratorUpgrades : MonoBehaviour, IDataPersistence
         }
     }
 
-    public void updateUI()
+    public void ApplyBoost(float multiplier, float duration)
     {
-    priceText.text = CalculatePrice().ToString();
-    levelText.text = $"Level: {level}";
+        boostMultiplier = multiplier;
+        boostTimeRemaining = duration;
 
-    if (level == 0)
-    {
-        incomeInfoText.text = "Income: " + baseIncome + " every " + incomeInterval + "s";
-    }
-    else if (level == 1)
-    {
-        incomeInfoText.text = "Income: " + baseIncome + " every " + incomeInterval + "s";
-    }
-    else
-    {
-        float incomeGrowth = GetIncomeGrowthMultiplier();
-        float totalIncome = baseIncome * Mathf.Pow(incomeGrowth, level);
-        float nextLevelIncome = baseIncome * Mathf.Pow(incomeGrowth, level + 1);
-        incomeInfoText.text = $"Income: {totalIncome:f1} -> {nextLevelIncome:f1} every {incomeInterval:f1}s";
-    }
+        UpdateUI();
     }
 
+    private string GenerateBasicIncomeText()
+    {
+        float currentIncome = CalculateIncomeForLevel(level);
+        float nextIncome = CalculateIncomeForLevel(level + 1);
+
+        if (level == 0)
+        {
+            return $"Income: {baseIncome:F1} every {incomeInterval:F1}/s ";
+        }
+        else
+        {
+            return $"Income: {currentIncome:F1} -> {nextIncome:F1} every {incomeInterval:F1}/s ";
+        }
+    }
+
+    private string GenerateBoostedIncomeText()
+    {
+        float currentIncome = CalculateIncomeForLevel(level);
+        float nextIncome = CalculateIncomeForLevel(level + 1);
+        float boostedIncome = currentIncome * boostMultiplier;
+        float nextBoostedIncome = nextIncome * boostMultiplier;
+
+        if (level == 0)
+        {
+            return $"Income: {boostedIncome:F1} every {incomeInterval:F1}s";
+        }
+        else
+        {
+            return
+                $"Income: {boostedIncome:F1} -> {nextBoostedIncome:F1} every {incomeInterval:F1}/s";
+        }
+    }
+
+    private float CalculateIncomeForLevel(int targetLevel)
+    {
+        if (targetLevel == 0)
+        {
+            return baseIncome;
+        }
+
+        float growthMultipler = GetIncomeGrowthMultiplier();
+        return baseIncome * Mathf.Pow(growthMultipler, targetLevel);
+    }
+
+    public void UpdateUI()
+    {
+        priceText.text = CalculatePrice().ToString();
+        levelText.text = $"Level: {level}";
+
+        bool isBoostActive = boostMultiplier > 1f && boostTimeRemaining > 0f;
+        incomeInfoText.text = isBoostActive
+            ? GenerateBoostedIncomeText()
+            : GenerateBasicIncomeText();
+    }
 
 
 }

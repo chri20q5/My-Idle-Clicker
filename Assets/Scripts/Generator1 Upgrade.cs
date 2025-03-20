@@ -3,6 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UIElements;
 using Button = UnityEngine.UI.Button;
+using Slider = UnityEngine.UI.Slider;
 
 public class Generator1Upgrade : MonoBehaviour, IDataPersistence
 {
@@ -12,6 +13,7 @@ public class Generator1Upgrade : MonoBehaviour, IDataPersistence
     public Button buyButton;
     public GeneratorUpgrades targetGenerator;
     public Clicker clicker;
+    public Slider boostTimerSlider;
 
     [Header("Settings")]
     public string upgradeID;
@@ -35,6 +37,10 @@ public class Generator1Upgrade : MonoBehaviour, IDataPersistence
     private void Start()
     {
         UpdateUI();
+        if (boostTimerSlider != null)
+        {
+            boostTimerSlider.gameObject.SetActive(false);
+        }
     }
 
     private void Update()
@@ -45,10 +51,26 @@ public class Generator1Upgrade : MonoBehaviour, IDataPersistence
         if (boostActive)
         {
             boostTimer -= Time.deltaTime;
+            if (boostTimerSlider != null)
+            {
+                boostTimerSlider.gameObject.SetActive(true);
+                boostTimerSlider.value = boostTimer / boostDuration;
+            }
+
             if (boostTimer <= 0f)
             {
                 boostActive = false;
                 currentBoostMultiplier = 1f;
+
+                if (boostTimerSlider != null)
+                {
+                    boostTimerSlider.gameObject.SetActive(false);
+                }
+
+                if (targetGenerator != null)
+                {
+                    targetGenerator.ApplyBoost(1f, 0f);
+                }
             }
         }
     }
@@ -72,7 +94,16 @@ public class Generator1Upgrade : MonoBehaviour, IDataPersistence
             boostActive = true;
             boostTimer = boostDuration;
 
-            currentBoostMultiplier = 1f + (baseBoostPercent * level / 100f);
+            float boostMultiplier = 1f + (baseBoostPercent * level) / 100f;
+            currentBoostMultiplier = boostMultiplier;
+
+            if (boostTimerSlider != null)
+            {
+                boostTimerSlider.gameObject.SetActive(true);
+                boostTimerSlider.value = 1f;
+            }
+
+            targetGenerator.ApplyBoost(boostMultiplier, boostDuration);
         }
     }
 
@@ -96,11 +127,11 @@ public class Generator1Upgrade : MonoBehaviour, IDataPersistence
 
     public void LoadData(GameData data)
     {
-        data.generatorBoostUpgradeLevel.TryGetValue(upgradeID, out level);
+        this.level = data.generatorBoostUpgradeLevel;
     }
 
     public void SaveData(ref GameData data)
     {
-        data.generatorBoostUpgradeLevel.TryGetValue(upgradeID, out level);
+        data.generatorBoostUpgradeLevel = this.level;
     }
 }

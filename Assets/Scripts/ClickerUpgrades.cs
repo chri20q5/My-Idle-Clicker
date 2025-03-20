@@ -40,12 +40,12 @@ public class ClickerUpgrades : MonoBehaviour, IDataPersistence
 
     public void LoadData(GameData data)
     {
-        data.clickerUpgradesLevel.TryGetValue(upgradeID, out level);
+        this.level = data.clickerUpgradesLevel;
     }
 
     public void SaveData(ref GameData data)
     {
-        data.clickerUpgradesLevel[upgradeID] = this.level;
+        data.clickerUpgradesLevel = this.level;
 
     }
     private void Update()

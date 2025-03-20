@@ -60,6 +60,11 @@ public class Clicker : MonoBehaviour, IDataPersistence
         return false;
     }
 
+    public void ExitGame()
+    {
+        Application.Quit();
+    }
+
 
     void UpdateUI()
     {

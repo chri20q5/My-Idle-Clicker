@@ -53,6 +53,7 @@ public class GeneratorUpgrades : MonoBehaviour, IDataPersistence
 
     [Header("Managers")]
     public Clicker clicker;
+    public PremiumCurrency premiumCurrency;
 
     public Generator1Upgrade boostUpgrade;
 
@@ -130,6 +131,7 @@ public class GeneratorUpgrades : MonoBehaviour, IDataPersistence
 
        totalIncome *= boostMultiplier;
 
+       premiumCurrency.PremiumFromGenerator();
         clicker.AddIncome(totalIncome);
     }
 

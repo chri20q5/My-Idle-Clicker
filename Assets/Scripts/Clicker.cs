@@ -9,9 +9,10 @@ public class Clicker : MonoBehaviour, IDataPersistence
     [SerializeField] GeneratorUpgrades[] generatorUpgrades;
 
     [HideInInspector] public float currencyCount = 0;
+    [HideInInspector] public int premiumCurrencyCount = 0;
     [HideInInspector] public float clickPower = 1f;
 
-
+    public PremiumCurrency premiumCurrency;
 
     private void Start()
     {
@@ -21,17 +22,20 @@ public class Clicker : MonoBehaviour, IDataPersistence
     public void LoadData(GameData data)
     {
         this.currencyCount = data.currencyCount;
+        this.premiumCurrencyCount = data.premiumCurrencyCount;
     }
 
     public void SaveData(ref GameData data)
     {
         data.currencyCount = this.currencyCount;
+        data.premiumCurrencyCount = this.premiumCurrencyCount;
     }
 
 
     public void ActiveClicker()
     {
         currencyCount += clickPower;
+        premiumCurrency.PremiumFromClick();
 
         Generator1Upgrade[] boostUpgrades = FindObjectsByType<Generator1Upgrade>(FindObjectsSortMode.None);
         foreach (var boostUpgrade in boostUpgrades)

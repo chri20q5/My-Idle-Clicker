@@ -11,6 +11,7 @@ public class GameData
     public SerializableDictionary<string, float> generatorTimers;
     public int clickerUpgradesLevel;
     public int generatorBoostUpgradeLevel;
+    public int premiumCurrencyCount;
 
     public GameData()
     {
@@ -19,5 +20,6 @@ public class GameData
         generatorTimers = new SerializableDictionary<string, float>();
         this.clickerUpgradesLevel = 0;
         this.generatorBoostUpgradeLevel = 0;
+        this.premiumCurrencyCount = 0;
     }
 }

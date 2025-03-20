@@ -12,6 +12,7 @@ public class GameData
     public int clickerUpgradesLevel;
     public int generatorBoostUpgradeLevel;
     public int premiumCurrencyCount;
+    public bool premiumGenerationUnlocked;
 
     public GameData()
     {
@@ -21,5 +22,6 @@ public class GameData
         this.clickerUpgradesLevel = 0;
         this.generatorBoostUpgradeLevel = 0;
         this.premiumCurrencyCount = 0;
+        this.premiumGenerationUnlocked = false;
     }
 }

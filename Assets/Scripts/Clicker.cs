@@ -68,6 +68,6 @@ public class Clicker : MonoBehaviour, IDataPersistence
 
     void UpdateUI()
     {
-     currencyText.text = Mathf.RoundToInt(currencyCount).ToString();
+     currencyText.text =$"<sprite=5>{Mathf.RoundToInt(currencyCount).ToString()}";
     }
 }

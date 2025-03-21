@@ -67,6 +67,7 @@ public class ClickerUpgrades : MonoBehaviour, IDataPersistence
         }
     }
 
+
     private void UpdateClickPower()
     {
         clicker.clickPower = baseClickPower * Mathf.Pow(powerBase, level);

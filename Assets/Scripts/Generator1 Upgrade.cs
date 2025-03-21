@@ -7,7 +7,7 @@ using Slider = UnityEngine.UI.Slider;
 
 public class Generator1Upgrade : MonoBehaviour, IDataPersistence
 {
-    [Header("References")] public TMP_Text priceText;
+    [Header("Components")] public TMP_Text priceText;
     public TMP_Text levelText;
     public TMP_Text effectText;
     public Button buyButton;

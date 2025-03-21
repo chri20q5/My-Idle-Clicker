@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      quantum Cracker_0: 2306098199614159978
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

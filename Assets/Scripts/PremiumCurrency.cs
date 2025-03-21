@@ -32,17 +32,16 @@ public class PremiumCurrency : MonoBehaviour, IDataPersistence
     public Color textHighlightColor = Color.yellow;
 
     private Color originalTextColor;
-    private bool animatingText = false;
+    //private bool animatingText = false;
     private float animationTime = 0f;
     private const float animationDuration = 0.5f;
 
 
     private void Start()
     {
-        UpdateUI();
         originalTextColor = premiumCurrencyText.color;
-
         PurchasedState();
+        UpdateUI();
     }
 
     private void Update()
@@ -52,7 +51,7 @@ public class PremiumCurrency : MonoBehaviour, IDataPersistence
 
         if (t >= 1.0f)
         {
-            animatingText = false;
+            //animatingText = false;
             premiumCurrencyText.color = originalTextColor;
             premiumCurrencyText.transform.localScale = Vector3.one;
         }
@@ -64,7 +63,7 @@ public class PremiumCurrency : MonoBehaviour, IDataPersistence
         }
 
 
-        bool canAfford = clicker.currencyCount >= unlockCost;
+        bool canAfford = clicker.premiumCurrencyCount >= unlockCost;
         unlockButton.interactable = canAfford;
     }
 
@@ -104,14 +103,13 @@ public class PremiumCurrency : MonoBehaviour, IDataPersistence
     private void PlayPremiumEffects()
     {
         premiumParticleEffect.Play();
-        animatingText = true;
+        //animatingText = true;
         animationTime = 0f;
     }
 
     public void ClickAction()
     {
-        if (!premiumGenerationUnlocked) return;
-
+        if (premiumGenerationUnlocked) return;
         int price = unlockCost;
         bool purchaseSuccesful = clicker.purchaseAction(price);
 
@@ -127,7 +125,7 @@ public class PremiumCurrency : MonoBehaviour, IDataPersistence
     {
         if (premiumGenerationUnlocked)
         {
-            unlockButton.interactable = true;
+            unlockButton.interactable = false;
             lockedIndicator.SetActive(false);
             buttonText.text = purchasedText;
             premiumCurrencyText.text = purchasedText;
@@ -135,7 +133,7 @@ public class PremiumCurrency : MonoBehaviour, IDataPersistence
         }
         else
         {
-            unlockButton.interactable = false;
+            unlockButton.interactable = true;
             lockedIndicator.SetActive(true);
             buttonText.text = "Unlock";
             premiumCurrencyCount.SetActive(false);
@@ -151,6 +149,9 @@ public class PremiumCurrency : MonoBehaviour, IDataPersistence
     public void LoadData(GameData data)
     {
         premiumGenerationUnlocked = data.premiumGenerationUnlocked;
+        PurchasedState();
+        UpdateUI();
+
     }
 
     public void SaveData(ref GameData data)

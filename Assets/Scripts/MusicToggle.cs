@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MusicToggle : MonoBehaviour
+public class MusicToggle : MonoBehaviour, IDataPersistence
 {
     [SerializeField] private Toggle soundToggle;
     [SerializeField] private Image buttonImage;
@@ -22,7 +22,7 @@ public class MusicToggle : MonoBehaviour
 
         if (musicSource != null)
         {
-            musicSource.mute = isOn;
+            musicSource.mute = !isOn;
         }
     }
 
@@ -30,5 +30,17 @@ public class MusicToggle : MonoBehaviour
     {
         buttonImage.sprite = isOn ? soundOnSprite : soundOffSprite;
     }
+
+    public void LoadData(GameData data)
+    {
+        soundToggle.isOn = data.musicState;
+        OnSoundToggleChanged(data.musicState);
+    }
+
+    public void SaveData(ref GameData data)
+    {
+        data.musicState = soundToggle.isOn;
+    }
+
 
 }

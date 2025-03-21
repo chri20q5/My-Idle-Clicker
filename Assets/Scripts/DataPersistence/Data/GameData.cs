@@ -13,6 +13,7 @@ public class GameData
     public int generatorBoostUpgradeLevel;
     public int premiumCurrencyCount;
     public bool premiumGenerationUnlocked;
+    public bool musicState = true;
 
     public GameData()
     {
@@ -23,5 +24,6 @@ public class GameData
         this.generatorBoostUpgradeLevel = 0;
         this.premiumCurrencyCount = 0;
         this.premiumGenerationUnlocked = false;
+        this.musicState = true;
     }
 }
